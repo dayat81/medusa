@@ -1,0 +1,50 @@
+# Production Environment Configuration
+project_id = "your-gcp-project-prod"
+region     = "us-central1"
+zone       = "us-central1-a"
+alternative_zone = "us-central1-b"
+environment = "prod"
+
+# Database Configuration
+db_tier           = "db-custom-4-16384"  # 4 vCPUs, 16GB RAM
+db_name           = "medusa"
+db_user           = "medusa"
+db_password       = "your-very-secure-password"
+enable_db_ha      = true
+db_backup_start_time = "03:00"
+
+# Redis Configuration
+redis_tier       = "STANDARD_HA"
+redis_memory_gb  = 5
+enable_redis_ha  = true
+
+# Application Configuration
+image_tag             = "v1.0.0"
+artifact_registry_url = "us-central1-docker.pkg.dev/your-gcp-project-prod/medusa"
+
+# Server Configuration
+server_cpu           = "4"
+server_memory        = "4Gi"
+server_min_instances = 2
+server_max_instances = 20
+
+# Worker Configuration
+worker_cpu           = "2"
+worker_memory        = "2Gi"
+worker_min_instances = 1
+worker_max_instances = 10
+
+# Network Configuration
+allowed_origins = [
+  "https://yourdomain.com",
+  "https://www.yourdomain.com",
+  "https://admin.yourdomain.com"
+]
+
+# Load Balancer Configuration
+domains = [
+  "yourdomain.com",
+  "www.yourdomain.com",
+  "api.yourdomain.com"
+]
+enable_cdn = true

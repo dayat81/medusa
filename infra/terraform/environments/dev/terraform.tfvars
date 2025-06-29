@@ -1,0 +1,51 @@
+# Development Environment Configuration - Indonesia
+project_id = "medusa-dev-indonesia"
+region     = "asia-southeast2"
+zone       = "asia-southeast2-a"
+alternative_zone = "asia-southeast2-b"
+environment = "dev"
+
+# Database Configuration
+db_tier           = "db-f1-micro"
+db_name           = "medusa"
+db_user           = "medusa"
+db_password       = "medusa-dev-indonesia-2025"
+enable_db_ha      = false
+db_backup_start_time = "03:00"
+
+# Redis Configuration
+redis_tier       = "BASIC"
+redis_memory_gb  = 1
+enable_redis_ha  = false
+
+# Application Configuration
+image_tag             = "latest"
+artifact_registry_url = "asia-southeast2-docker.pkg.dev/medusa-dev-indonesia/medusa"
+
+# Server Configuration
+server_cpu           = "1"
+server_memory        = "1Gi"
+server_min_instances = 0
+server_max_instances = 5
+
+# Worker Configuration
+worker_cpu           = "1"
+worker_memory        = "1Gi"
+worker_min_instances = 0
+worker_max_instances = 3
+
+# Network Configuration
+allowed_origins = [
+  "http://localhost:3000",
+  "http://localhost:8000",
+  "https://dev-indonesia.medusa.com"
+]
+
+# Load Balancer Configuration
+domains    = [] # Leave empty for development
+enable_cdn = false
+
+# Serverless Configuration
+use_private_networking = false # Use serverless approach
+skip_vpc_connector = true # Not needed for serverless
+enable_public_storage_access = false # Disable due to org policy
