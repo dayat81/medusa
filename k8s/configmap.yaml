@@ -16,5 +16,9 @@ data:
   # Disable file watching in production to avoid ENOSPC errors
   CHOKIDAR_USEPOLLING: "false"
   CHOKIDAR_INTERVAL: "1000"
+  # Medusa backend and admin URLs
+  BACKEND_URL: "https://medusa.aksa.ai"
+  ADMIN_URL: "https://medusa.aksa.ai"
+  MEDUSA_WORKER_MODE: "shared"
   # Redis configuration will be set via secret
   # Database configuration will be set via secret

@@ -85,6 +85,21 @@ spec:
             configMapKeyRef:
               name: medusa-config
               key: CHOKIDAR_INTERVAL
+        - name: BACKEND_URL
+          valueFrom:
+            configMapKeyRef:
+              name: medusa-config
+              key: BACKEND_URL
+        - name: ADMIN_URL
+          valueFrom:
+            configMapKeyRef:
+              name: medusa-config
+              key: ADMIN_URL
+        - name: MEDUSA_WORKER_MODE
+          valueFrom:
+            configMapKeyRef:
+              name: medusa-config
+              key: MEDUSA_WORKER_MODE
         resources:
           requests:
             memory: "512Mi"
@@ -111,7 +126,13 @@ spec:
         volumeMounts:
         - name: uploads-volume
           mountPath: /app/uploads
+        - name: medusa-config
+          mountPath: /app/medusa-config.js
+          subPath: medusa-config.js
       volumes:
       - name: uploads-volume
         emptyDir: {}
+      - name: medusa-config
+        configMap:
+          name: medusa-app-config
       # Using workload identity for image pulls
