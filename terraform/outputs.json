@@ -1,0 +1,211 @@
+{
+  "artifact_registry_location": {
+    "sensitive": false,
+    "type": "string",
+    "value": "asia-southeast2"
+  },
+  "artifact_registry_repository": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa-dev"
+  },
+  "deployment_summary": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "artifact_registry": "string",
+        "environment": "string",
+        "gke_cluster_name": "string",
+        "load_balancer_ip": "string",
+        "postgres_instance": "string",
+        "project_id": "string",
+        "redis_instance": "string",
+        "region": "string",
+        "storage_bucket": "string",
+        "zone": "string"
+      }
+    ],
+    "value": {
+      "artifact_registry": "medusa-dev",
+      "environment": "dev",
+      "gke_cluster_name": "medusa-dev-cluster",
+      "load_balancer_ip": "35.244.143.157",
+      "postgres_instance": "medusa-dev-postgres",
+      "project_id": "medusa-dev-jkt",
+      "redis_instance": "medusa-dev-redis",
+      "region": "asia-southeast2",
+      "storage_bucket": "medusa-dev-jkt-medusa-dev-uploads",
+      "zone": "asia-southeast2-a"
+    }
+  },
+  "docker_build_commands": {
+    "sensitive": false,
+    "type": [
+      "tuple",
+      [
+        "string",
+        "string",
+        "string",
+        "string",
+        "string",
+        "string",
+        "string",
+        "string"
+      ]
+    ],
+    "value": [
+      "# Configure Docker to use gcloud as a credential helper",
+      "gcloud auth configure-docker asia-southeast2-docker.pkg.dev",
+      "",
+      "# Build the Docker image",
+      "docker build -f Dockerfile.server -t asia-southeast2-docker.pkg.dev/medusa-dev-jkt/medusa-dev/medusa:latest .",
+      "",
+      "# Push the Docker image",
+      "docker push asia-southeast2-docker.pkg.dev/medusa-dev-jkt/medusa-dev/medusa:latest"
+    ]
+  },
+  "docker_repository_url": {
+    "sensitive": false,
+    "type": "string",
+    "value": "asia-southeast2-docker.pkg.dev/medusa-dev-jkt/medusa-dev"
+  },
+  "gke_cluster_ca_certificate": {
+    "sensitive": true,
+    "type": "string",
+    "value": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVMRENDQXBTZ0F3SUJBZ0lRYUVFT1JHZkg0K1IzZUdocnhVY2tTekFOQmdrcWhraUc5dzBCQVFzRkFEQXYKTVMwd0t3WURWUVFERXlRNE4yUXlOemMxWkMwNU5UWmxMVFJrTVdNdFlUUmlOaTB4TlRVek1EQmpNVEkyWVRjdwpJQmNOTWpVd056QTBNRFV5TVRVd1doZ1BNakExTlRBMk1qY3dOakl4TlRCYU1DOHhMVEFyQmdOVkJBTVRKRGczClpESTNOelZrTFRrMU5tVXROR1F4WXkxaE5HSTJMVEUxTlRNd01HTXhNalpoTnpDQ0FhSXdEUVlKS29aSWh2Y04KQVFFQkJRQURnZ0dQQURDQ0FZb0NnZ0dCQU5LYUZFZFBqeW5xY0h0SHQ1MHZSbzYyTnBQWTlBYmxRaHY1NFduYQpiQXViYzZuMllnc0dmYWJXaXBSbVU5OWVBK0trb1E5THRFODFFaUVIbHVvU1J6Z2x4NmFRTkl3SEY3S1U5U202CldpMnhVM2I2c0EwK3lsdXNUbnJVTlFYQVhrWGsxazNER0RGeE10V2RMRDl6Ulc5bG5Db0NScUhnVUJKb2t6aCsKSTVXRHRsUXczTFRxeG04NjdGWXIvQnNVQ2t4ekxGTlRUL1lFZkVmeWhUNFFFa2x5NVQzNWkvOStPUUVhd3dzagpBL2dYY28zVCtXWmhWNTV0Z3k1WmZkbXUvcE9MME1XOWFHc3pxUVRFU3d2TFgrL0pKNERralhtQzJuSi84N1pGCk1ZdHdMS2JnS1RndUZoZmtrOWY4Y2t2Q3kvYWZ0bjVYL2p1OVBsVlN1ZXVwYjZQV3lmWFZHZ3ZOVjJueDBjNjYKYjNqa083MWZlSHVidFlFMm4vcTdBVjFlMEprbENUOHo5b1VkU2pkT2dLamtISzNpTkV2NGxleDMvMWlBOVlPVgpubVo4NjNhV2hnTEkvSWlqcXRiaFpHQ3k0SVhOSHBGcTZXWWdQR3ROVWEyT1JVZ2p1ME1HbW5RNEpzMDM0ajE3CjNJV1pBK0gwR2wxb3hJbGdlOE5VSkcvQjd3SURBUUFCbzBJd1FEQU9CZ05WSFE4QkFmOEVCQU1DQWdRd0R3WUQKVlIwVEFRSC9CQVV3QXdFQi96QWRCZ05WSFE0RUZnUVVyWEFyWXpzdXd4bGh6RlJuYjdEa2xLY2ZMdzR3RFFZSgpLb1pJaHZjTkFRRUxCUUFEZ2dHQkFERmVIVTdnMDFoL0JuODZTcDRqejB5Z1dXUURXQmoyYnZSMUdMZjJGTUhwCnNCdU9kR2pBSzFxSkVUaEJEbFNONUlsQ3hjTnZoUzBHa09FOTB2Nmh4UFE2WDFNOWExVFZiNUFFUytiVmRkUGIKZXF4NFlGRG4zMHNUZW9CUXQ3OFhqb0s1OC9hWitVNk5aVDhKc0lNcyt6dEZkUlE3WUozNEdBS0tuUTZqSWR0bAorZkhIdjNhdFYzcG42TkpZeklYYUIxOXgvNm9rNk5aSkhnWlljTUlLOUQzb2NUVitYMVdXaDlCQ1kyQ0dFaENnCjkxVmFXeHVuK0wzRXJOcEE4MjhpbWNoWktadGg5S1NmQXFZNS9hUzVYOTB0U0djNnVUM2xnUHNScGxiNHhiM2YKaStuUXFYMk8raTRCSnJueE1wbDBqdkdwd3IrTkgrcDB0aHJ0aVhPVVY2S2syWkJza0RpcTNWTkIyU3ZCYmhaVwovRU9XUm5Pd2IrUC9udWZTSkgybmgwUjJEWXp4WVVhd2tYV0EvbHE4YVUzbnY1c0VVNlh5aGZ0Uks3RnZ5dEpMCnd0UFN4S2Y2UHNhanN0WDc5L2swdHRJR0R6ZE10aVhiRjBRWENTaXA4TktsbnZoYmdoVDViZ3YxTmNXbE9uV2wKb0RkNGp5bXNvd2UzU2JtSE5EVjRUQT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
+  },
+  "gke_cluster_endpoint": {
+    "sensitive": true,
+    "type": "string",
+    "value": "34.101.92.0"
+  },
+  "gke_cluster_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa-dev-cluster"
+  },
+  "gke_service_account_email": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa-dev-gke-sa@medusa-dev-jkt.iam.gserviceaccount.com"
+  },
+  "kubectl_config_command": {
+    "sensitive": false,
+    "type": "string",
+    "value": "gcloud container clusters get-credentials medusa-dev-cluster --zone asia-southeast2-a --project medusa-dev-jkt"
+  },
+  "load_balancer_ip": {
+    "sensitive": false,
+    "type": "string",
+    "value": "35.244.143.157"
+  },
+  "load_balancer_ip_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa-dev-lb-ip"
+  },
+  "postgres_database_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa"
+  },
+  "postgres_instance_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa-dev-postgres"
+  },
+  "postgres_user_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa"
+  },
+  "project_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa-dev-jkt"
+  },
+  "redis_connection_string": {
+    "sensitive": true,
+    "type": "string",
+    "value": "redis://10.170.213.147:6379"
+  },
+  "redis_current_location_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "asia-southeast2-a"
+  },
+  "redis_host": {
+    "sensitive": true,
+    "type": "string",
+    "value": "10.170.213.147"
+  },
+  "redis_instance_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa-dev-redis"
+  },
+  "redis_port": {
+    "sensitive": false,
+    "type": "number",
+    "value": 6379
+  },
+  "region": {
+    "sensitive": false,
+    "type": "string",
+    "value": "asia-southeast2"
+  },
+  "secret_names": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "cookie-secret": "string",
+        "database-url": "string",
+        "jwt-secret": "string",
+        "redis-url": "string"
+      }
+    ],
+    "value": {
+      "cookie-secret": "projects/355018728030/secrets/medusa-dev-cookie-secret",
+      "database-url": "projects/355018728030/secrets/medusa-dev-database-url",
+      "jwt-secret": "projects/355018728030/secrets/medusa-dev-jwt-secret",
+      "redis-url": "projects/355018728030/secrets/medusa-dev-redis-url"
+    }
+  },
+  "storage_bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa-dev-jkt-medusa-dev-uploads"
+  },
+  "storage_bucket_url": {
+    "sensitive": false,
+    "type": "string",
+    "value": "gs://medusa-dev-jkt-medusa-dev-uploads"
+  },
+  "subnet_ip_range": {
+    "sensitive": false,
+    "type": "string",
+    "value": "10.0.0.0/24"
+  },
+  "subnet_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa-dev-subnet"
+  },
+  "vpc_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "projects/medusa-dev-jkt/global/networks/medusa-dev-vpc"
+  },
+  "vpc_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "medusa-dev-vpc"
+  },
+  "zone": {
+    "sensitive": false,
+    "type": "string",
+    "value": "asia-southeast2-a"
+  }
+}

@@ -1,0 +1,64 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: medusa-ingress
+  namespace: medusa-dev
+  labels:
+    app: medusa
+    environment: dev
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.global-static-ip-name: "medusa-dev-lb-ip"
+    networking.gke.io/managed-certificates: "medusa-ssl-cert"
+    kubernetes.io/ingress.allow-http: "true"
+    # Force HTTPS redirect
+    ingress.gcp.kubernetes.io/force-ssl-redirect: "true"
+    # Backend configuration for health checks
+    cloud.google.com/backend-config: '{"default": "medusa-backend-config"}'
+spec:
+  rules:
+  - host: medusa.aksa.ai
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: medusa-service
+            port:
+              number: 80
+  # Default backend for health checks
+  defaultBackend:
+    service:
+      name: medusa-service
+      port:
+        number: 80
+
+---
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: medusa-ssl-cert
+  namespace: medusa-dev
+spec:
+  domains:
+  - medusa.aksa.ai
+
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: medusa-backend-config
+  namespace: medusa-dev
+spec:
+  healthCheck:
+    checkIntervalSec: 30
+    timeoutSec: 10
+    healthyThreshold: 1
+    unhealthyThreshold: 3
+    type: HTTP
+    requestPath: /health
+    port: 9000
+  timeoutSec: 30
+  connectionDraining:
+    drainingTimeoutSec: 60

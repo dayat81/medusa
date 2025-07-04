@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medusa-server
+  namespace: medusa-dev
+  labels:
+    app: medusa
+    component: server
+    environment: dev
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: medusa
+      component: server
+  template:
+    metadata:
+      labels:
+        app: medusa
+        component: server
+        environment: dev
+    spec:
+      serviceAccountName: medusa-service-account
+      containers:
+      - name: medusa-server
+        image: asia-southeast2-docker.pkg.dev/medusa-dev-jkt/medusa-dev/medusa:latest
+        command: ["/app/packages/cli/medusa-cli/cli.js"]
+        args: ["start"]
+        ports:
+        - containerPort: 9000
+          protocol: TCP
+        env:
+        - name: NODE_ENV
+          valueFrom:
+            configMapKeyRef:
+              name: medusa-config
+              key: NODE_ENV
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: medusa-config
+              key: PORT
+        - name: ADMIN_CORS
+          valueFrom:
+            configMapKeyRef:
+              name: medusa-config
+              key: ADMIN_CORS
+        - name: STORE_CORS
+          valueFrom:
+            configMapKeyRef:
+              name: medusa-config
+              key: STORE_CORS
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: medusa-secrets
+              key: database-url
+        - name: REDIS_URL
+          valueFrom:
+            secretKeyRef:
+              name: medusa-secrets
+              key: redis-url
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: medusa-secrets
+              key: jwt-secret
+        - name: COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: medusa-secrets
+              key: cookie-secret
+        - name: CHOKIDAR_USEPOLLING
+          valueFrom:
+            configMapKeyRef:
+              name: medusa-config
+              key: CHOKIDAR_USEPOLLING
+        - name: CHOKIDAR_INTERVAL
+          valueFrom:
+            configMapKeyRef:
+              name: medusa-config
+              key: CHOKIDAR_INTERVAL
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        volumeMounts:
+        - name: uploads-volume
+          mountPath: /app/uploads
+      volumes:
+      - name: uploads-volume
+        emptyDir: {}
+      # Using workload identity for image pulls

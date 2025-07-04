@@ -1,0 +1,42 @@
+# Example Terraform variables file for Medusa GCP Jakarta Deployment
+# Copy this file to terraform.tfvars and fill in your values
+
+# Required variables
+project_id  = "medusa-dev-jkt"
+db_password = "your-secure-database-password"
+
+# Optional variables (uncomment and modify as needed)
+# region              = "asia-southeast2"
+# zone                = "asia-southeast2-a"
+# environment         = "dev"
+# node_count          = 2
+# node_machine_type   = "e2-medium"
+# enable_preemptible  = true
+# postgres_tier       = "db-f1-micro"
+# postgres_disk_size  = 20
+# redis_memory_size_gb = 1
+# enable_monitoring   = true
+# enable_backup       = true
+# backup_retention_days = 7
+# storage_bucket_name = "medusa-uploads"
+
+# SSL certificates (if you have custom domains)
+# ssl_certificates = [
+#   "your-domain.com",
+#   "api.your-domain.com"
+# ]
+
+# CORS origins for your frontend applications
+# cors_origins = [
+#   "https://your-frontend-domain.com",
+#   "https://admin.your-domain.com",
+#   "http://localhost:3000",
+#   "http://localhost:9000"
+# ]
+
+# Additional labels for resource organization
+# labels = {
+#   team        = "ecommerce"
+#   cost_center = "engineering"
+#   owner       = "your-team"
+# }

@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: medusa-service-account
+  namespace: medusa-dev
+  labels:
+    app: medusa
+    environment: dev
+  annotations:
+    iam.gke.io/gcp-service-account: medusa-dev-gke-sa@medusa-dev-jkt.iam.gserviceaccount.com
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: medusa-dev
+  name: medusa-role
+rules:
+- apiGroups: [""]
+  resources: ["secrets", "configmaps"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: medusa-role-binding
+  namespace: medusa-dev
+subjects:
+- kind: ServiceAccount
+  name: medusa-service-account
+  namespace: medusa-dev
+roleRef:
+  kind: Role
+  name: medusa-role
+  apiGroup: rbac.authorization.k8s.io
